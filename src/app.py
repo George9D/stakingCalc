@@ -49,7 +49,7 @@ dbc_css = "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.mi
 app = Dash(__name__, external_stylesheets=[dbc.themes.DARKLY, dbc_css])
 server = app.server
 
-chains = ["EVMOS", "JUNO", "STARS"]
+chains = ["EVMOS", "JUNO"]
 
 heading = html.H4(
     "Staking Calculator", className="text-center bg-primary text-white p-2"
