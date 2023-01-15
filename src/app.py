@@ -11,8 +11,8 @@ import pandas as pd
 from dash.dependencies import Input, Output, State
 from dash_bootstrap_templates import load_figure_template
 
-Evmos = Token("EVMOS", 2, ifs.evmosInflationSchedule, 102264765, 53.33, 0, 142905189, 634500)
-Juno = Token("JUNO", 6, ifs.junoInflationSchedule, 43160000, 100, 0, 46396533, 77278)
+Evmos = Token("EVMOS", 2, ifs.evmosInflationSchedule, 145519475, 53.33, 0, 142905189, 634500)
+Juno = Token("JUNO", 6, ifs.junoInflationSchedule, 46557652, 100, 0, 46396533, 77278)
 Stars = Token("STARS", 0.04, ifs.starsInflationSchedule, 714676032, 35, 0, 715897972.8, 2198121.21)
 Osmo = Token("OSMO", 1.18, ifs.osmosInflationSchedule, 217193183, 25, 0, 217861152, 495080.83)
 Rebus = Token("REBUS", 0.2, ifs.rebusInflationSchedule, 22305908, 100, 0, 22305908, 160941.21)
