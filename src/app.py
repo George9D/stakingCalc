@@ -202,6 +202,13 @@ compoundingRewards = html.Div(
     ], className="dbc"
 )
 
+increaseRewardsComp = html.Div(
+    [
+        dbc.Label("Add. rewards compounding (%)", html_for="increaseRewardsComp"),
+        dbc.Input(id="increaseRewardsComp", type="text", value=0, readonly=True, style={'float': 'right','margin': 'auto'}),
+    ], className="dbc"
+)
+
 stakingAmount = html.Div(
     [
         dbc.Label("Total Staking Amount", html_for="stakingAmount"),
@@ -248,7 +255,7 @@ collapse = html.Div(
                                     compound_percentage
                                 ],
                                 xs=12, sm=12, md=12, lg=4, xl=4
-                            )
+                            ),
                         ], align="center", justify="center", className="py-3"
                     ),
                     ]
@@ -280,13 +287,19 @@ collapse_out = html.Div(
                                 [
                                     basicStakingRewards
                                 ],
-                                xs=12, sm=12, md=12, lg=6, xl=6
+                                xs=12, sm=12, md=12, lg=4, xl=4
                             ),
                             dbc.Col(
                                 [
                                     compoundingRewards
                                 ],
-                                xs=12, sm=12, md=12, lg=6, xl=6
+                                xs=12, sm=12, md=12, lg=4, xl=4
+                            ),
+                            dbc.Col(
+                                [
+                                    increaseRewardsComp
+                                ],
+                                xs=12, sm=12, md=12, lg=4, xl=4
                             )
                         ], align="center", justify="center", className="py-3"
                     ),
@@ -579,7 +592,8 @@ def staking_amount_usd(stakingAmount, price):
      Output("compoundingRewards", "value"),
      Output("stakingAmount", "value"),
      Output("stakingValue", "value"),
-     Output("graph_3", "figure")],
+     Output("graph_3", "figure"),
+     Output("increaseRewardsComp", "value")],
     [Input("network", "value"),
      Input("stakingAmountToken", "value"),
      Input("currentPrice", "value"),
@@ -662,11 +676,16 @@ def update_calc(network, stkAmount, curPrice, futPrice,
     stakingValue = str(round(stakingAmount * futPrice, 2)) + " $"
     stakingAmount = str(round(stkAmount + stkRwds, 2)) + " " + chain.get_token_name()
 
+    # increase in staking rewards compared to rewards received without compounding in %
+    increasedRoiComp = compRwds / basicStakingRwds * 100
+    increasedRoiComp = str(increaseRewardsComp) + " %"
+
     stkRwds = str(stkRwds) + " " + chain.get_token_name()
     stkRwdsUSD = str(stkRwdsUSD) + " $"
     apr = str(apr) + " %"
 
-    return stkRwds, stkRwdsUSD, roi, roiUSD, apr, apy, fig1, fig2, basicStakingRwds, compoundingRwds, stakingAmount, stakingValue, fig3
+    return stkRwds, stkRwdsUSD, roi, roiUSD, apr, apy, fig1, fig2,basicStakingRwds, compoundingRwds,\
+           stakingAmount, stakingValue, fig3, increaseRewardsComp
 
 #######################################################################################################
 
