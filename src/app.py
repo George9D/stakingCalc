@@ -677,15 +677,15 @@ def update_calc(network, stkAmount, curPrice, futPrice,
     stakingAmount = str(round(stkAmount + stkRwds, 2)) + " " + chain.get_token_name()
 
     # increase in staking rewards compared to rewards received without compounding in %
-    increasedRoiComp = compRwds / basicStakingRwds * 100
-    increasedRoiComp = str(increaseRewardsComp) + " %"
+    increasedRoiComp = round(compoundingRwds / basicStakingRwds * 100, 2)
+    increasedRoiComp = str(increasedRoiComp) + " %"
 
     stkRwds = str(stkRwds) + " " + chain.get_token_name()
     stkRwdsUSD = str(stkRwdsUSD) + " $"
     apr = str(apr) + " %"
 
     return stkRwds, stkRwdsUSD, roi, roiUSD, apr, apy, fig1, fig2,basicStakingRwds, compoundingRwds,\
-           stakingAmount, stakingValue, fig3, increaseRewardsComp
+           stakingAmount, stakingValue, fig3, increasedRoiComp
 
 #######################################################################################################
 
