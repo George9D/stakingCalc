@@ -10,6 +10,7 @@ import plotly.express as px
 import pandas as pd
 from dash.dependencies import Input, Output, State
 from dash_bootstrap_templates import load_figure_template
+from function import convertPeriods
 
 Evmos = Token("EVMOS", 2, ifs.evmosInflationSchedule, 145519475, 53.33, 0, 142905189, 634500)
 Juno = Token("JUNO", 6, ifs.junoInflationSchedule, 46557652, 100, 0, 46396533, 77278)
@@ -31,16 +32,7 @@ stakingPeriod = 365
 commission = 5
 compoundingShare = 0
 
-def convertPeriods(compPeriod):
-    for p in range(4):
-        if compPeriod == "daily":
-            return 365
-        elif compPeriod == "weekly":
-            return 52
-        elif compPeriod == "monthly":
-            return 12
-        else:
-            return 1
+
 
 ########################################################################################################################
 #load_figure_template(["sketchy", "Flatly", "Minty", "cyborg", "vapor", "minty"])
@@ -81,7 +73,6 @@ stakingAmountUSD = html.Div(
      dbc.Input(id="stakingAmountUSD", type="number", value=0, readonly=True),
      ], className="dbc",
 )
-
 
 slider = html.Div(
     [
@@ -223,11 +214,13 @@ stakingValue = html.Div(
     ], className="dbc"
 )
 
+# ----------------------------------------------------------------------------------------------------------------------
+
 collapse = html.Div(
     [
         dbc.Button(
             "Advanced",
-            id="advanced-button",
+            id="advanced-button-in",
             color="primary",
             n_clicks=0,
             class_name="mb-2"
@@ -270,13 +263,6 @@ collapse = html.Div(
 
 collapse_out = html.Div(
     [
-        dbc.Button(
-            "Advanced",
-            id="advanced-button-out",
-            color="primary",
-            n_clicks=0,
-            class_name="mb-2"
-        ),
         dbc.Collapse(
             dbc.Card(
                 dbc.CardBody(
@@ -327,7 +313,7 @@ graph3 = dbc.Card(dbc.CardBody([
 
 #graph2 =  dcc.Graph(id="graph_2", figure={})
 
-# ------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
 
 card_in = dbc.Card(
     [
@@ -350,15 +336,10 @@ card_in = dbc.Card(
                     [
                         dbc.Col(
                             [stakingAmountToken],
-                            #width={"size": 6, "offset": 0},
-                            #align='center',
-                            #className="py-5"
                             xs=12, sm=12, md=6, lg=6, xl=6
                         ),
                         dbc.Col(
                             [stakingAmountUSD],
-                            #width={"size": 6, "offset": 0},
-                            #align='center',
                             xs=12, sm=12, md=6, lg=6, xl=6
                         )
                     ], align="center", justify="center", className="py-3"
@@ -368,8 +349,6 @@ card_in = dbc.Card(
                     [
                         dbc.Col(
                             [slider],
-                            #width={"size": 12, "offset": 0},
-                            #align='center',
                             xs=12, sm=12, md=12, lg=12, xl=12
                         ),
                     ], align="center", justify="center", className="pt-3"
@@ -381,17 +360,12 @@ card_in = dbc.Card(
                             [
                                 current_price
                             ],
-                            #width={"size": 6, "offset": 0},
-                            #align='center',
-                            # className="py-5"
                             xs=12, sm=12, md=6, lg=6, xl=6
                         ),
                         dbc.Col(
                             [
                                 future_price
                             ],
-                            #width={"size": 6, "offset": 0},
-                            #align='center',
                             xs=12, sm=12, md=6, lg=6, xl=6
                         )
                     ], align="center", justify="center", className="py-3"
@@ -402,9 +376,6 @@ card_in = dbc.Card(
                         dbc.Col(
                             [collapse],
                             width={"size": 12, "offset": 0},
-                            #align='center',
-                            #className="align-middle",
-                            #xs=12, sm=12, md=5, lg=5, xl=5
                         ),
                     ], align="center", justify="center", className="pt-3"
                 ),
@@ -439,15 +410,10 @@ card_out = dbc.Card(
                     [
                         dbc.Col(
                             [stakingRewards],
-                            #width={"size": 5, "offset": 0},
-                            #align='center',
-                            #className="py-5"
                             xs=12, sm=12, md=6, lg=6, xl=6
                         ),
                         dbc.Col(
                             [stakingRewardsUSD],
-                            #width={"size": 5, "offset": 0},
-                            #align='center',
                             xs=12, sm=12, md=6, lg=6, xl=6
                         )
                     ], align="center", justify="center", className="py-3"
@@ -459,17 +425,12 @@ card_out = dbc.Card(
                             [
                                 roi
                             ],
-                            #width={"size": 5, "offset": 0},
-                            #align='center',
-                            # className="py-5"
                             xs=12, sm=12, md=6, lg=6, xl=6
                         ),
                         dbc.Col(
                             [
                                 roiUSD
                             ],
-                            #width={"size": 5, "offset": 0},
-                            #align='center',
                             xs=12, sm=12, md=6, lg=6, xl=6
                         )
                     ], align="center", justify="center", className="py-3"
@@ -481,17 +442,12 @@ card_out = dbc.Card(
                             [
                                 APR
                             ],
-                            #width={"size": 5, "offset": 0},
-                            #align='center',
-                            # className="py-5"
                             xs=12, sm=12, md=6, lg=6, xl=6
                         ),
                         dbc.Col(
                             [
                                 APY
                             ],
-                            #width={"size": 5, "offset": 0},
-                            #align='center',
                             xs=12, sm=12, md=6, lg=6, xl=6
                         ),
                     ], align="center", justify="center", className="py-3"
@@ -500,7 +456,7 @@ card_out = dbc.Card(
                 dbc.Row(
                     [
                         collapse_out
-                    ], align="center", justify="center", className="pt-3"
+                    ], align="center", justify="center", className="pt-5 mt-3"
                 ),
                     ]
                 )
@@ -536,21 +492,21 @@ app.layout = html.Div(
 
 @app.callback(
     Output("collapse", "is_open"),
-    [Input("advanced-button", "n_clicks")],
+    [Input("advanced-button-in", "n_clicks")],
     [State("collapse", "is_open")],
 )
-def toggle_collapse(n, is_open):
-    if n:
+def toggle_collapse(ni, is_open):
+    if ni:
         return not is_open
     return is_open
 
 @app.callback(
     Output("collapse-out", "is_open"),
-    [Input("advanced-button-out", "n_clicks")],
+    [Input("advanced-button-in", "n_clicks")],
     [State("collapse-out", "is_open")],
 )
-def toggle_collapse(n, is_open):
-    if n:
+def toggle_collapse(ni, is_open):
+    if ni:
         return not is_open
     return is_open
 
@@ -607,16 +563,6 @@ def staking_amount_usd(stakingAmount, price):
 def update_calc(network, stkAmount, curPrice, futPrice,
                 stkDuration, commission, compPeriod, compPerctage):
 
-    print(network)
-    print(stkAmount)
-    print(curPrice)
-    print(futPrice)
-    print(stkDuration)
-    print(commission)
-    print(compPeriod)
-    print(compPerctage)
-    print("***************")
-
     for t in Chains:
         if t.get_token_name() == network:
             chain = t
@@ -625,6 +571,7 @@ def update_calc(network, stkAmount, curPrice, futPrice,
 
     df = calcRewardsNew(chain, stkAmount, stkDuration, commission, compPeriod, compPerctage)
 
+    print("***************")
     print(df[:10])
     print("***************")
 
@@ -662,19 +609,16 @@ def update_calc(network, stkAmount, curPrice, futPrice,
 
     stkRwds = round(df['stakingRewards'].sum(), 2)
     stkRwdsUSD = round(stkRwds * futPrice, 2)
-    roi = str(round(stkRwds / stkAmount * 100, 2)) + " %"
-    roiUSD = str(round((stkRwds * futPrice) / (stkAmount * curPrice) * 100, 2)) + " %"
-    apr = round((stkRwds / stkDuration * 365) / stkAmount * 100, 2)
-    apy = str(round((pow((1 + (apr/convertPeriods(compPeriod)/100)),(convertPeriods(compPeriod)))-1) * 100, 2)) + " %"
-
-    compRwds = round(df['compRewards'].sum(), 2)
-    takenOutRwds = round(df['takenOutRewards'].sum(), 2)
+    roi = round(stkRwds / stkAmount * 100, 2)
+    roiUSD = round((stkRwds * futPrice) / (stkAmount * curPrice) * 100, 2)
+    # compRwds = round(df['compRewards'].sum(), 2)
+    # takenOutRwds = round(df['takenOutRewards'].sum(), 2)
     basicStakingRwds = round(df['basicStakingRewards'].sum(), 2)
     compoundingRwds = round(stkRwds - basicStakingRwds, 2)
-
-    stakingAmount = stkAmount + stkRwds
-    stakingValue = str(round(stakingAmount * futPrice, 2)) + " $"
-    stakingAmount = str(round(stkAmount + stkRwds, 2)) + " " + chain.get_token_name()
+    apr = round((basicStakingRwds / stkDuration * 365) / stkAmount * 100, 2)
+    apy = round((pow((1 + (apr / convertPeriods(compPeriod) / 100)), (convertPeriods(compPeriod))) - 1) * 100, 2)
+    stakingAmount = round(stkAmount + stkRwds, 2)
+    stakingValue = round(stakingAmount * futPrice, 2)
 
     # increase in staking rewards compared to rewards received without compounding in %
     increasedRoiComp = round(compoundingRwds / basicStakingRwds * 100, 2)
@@ -682,7 +626,14 @@ def update_calc(network, stkAmount, curPrice, futPrice,
 
     stkRwds = str(stkRwds) + " " + chain.get_token_name()
     stkRwdsUSD = str(stkRwdsUSD) + " $"
+    roi = str(roi) + " %"
+    roiUSD = str(roiUSD) + " %"
+    basicStakingRwds = str(basicStakingRwds) + " " + chain.get_token_name()
+    compoundingRwds = str(compoundingRwds) + " " + chain.get_token_name()
     apr = str(apr) + " %"
+    apy = str(apy) + " %"
+    stakingAmount = str(stakingAmount) + " " + chain.get_token_name()
+    stakingValue = str(stakingValue) + " $"
 
     return stkRwds, stkRwdsUSD, roi, roiUSD, apr, apy, fig1, fig2,basicStakingRwds, compoundingRwds,\
            stakingAmount, stakingValue, fig3, increasedRoiComp

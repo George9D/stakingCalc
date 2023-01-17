@@ -84,3 +84,13 @@ def calcRewards(nbrTokenStaked, stakingPeriod, commission, compoundingShare, tok
     return [restakedRewards, stakingRewardsProfits]
 ########################################################################################################################
 
+def convertPeriods(compPeriod):
+    for p in range(4):
+        if compPeriod == "daily":
+            return 365
+        elif compPeriod == "weekly":
+            return 52
+        elif compPeriod == "monthly":
+            return 12
+        else:
+            return 1
