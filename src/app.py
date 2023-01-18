@@ -100,7 +100,7 @@ stakindDuration = html.Div(
 )
 
 commission = html.Div(
-    [dbc.Label("Commission (%)", html_for="commission"),
+    [dbc.Label("Validator Commission (%)", html_for="commission"),
      dbc.Input(id="commission", type="number", value=5, min=0, max=100, debounce=True, readonly=False, style={'float': 'right','margin': 'auto'}),
     ], className="dbc"
 )
@@ -181,21 +181,21 @@ takenOutRewards = html.Div(
 
 basicStakingRewards = html.Div(
     [
-        dbc.Label("Rewards without compounding", html_for="basicStakingRewards"),
+        dbc.Label("Basic Rewards", html_for="basicStakingRewards"),
         dbc.Input(id="basicStakingRewards", type="text", value=0, readonly=True, style={'float': 'right','margin': 'auto'}),
     ], className="dbc"
 )
 
 compoundingRewards = html.Div(
     [
-        dbc.Label("Add. rewards from compounding", html_for="compoundingRewards"),
+        dbc.Label("Rewards Compounding", html_for="compoundingRewards"),
         dbc.Input(id="compoundingRewards", type="text", value=0, readonly=True, style={'float': 'right','margin': 'auto'}),
     ], className="dbc"
 )
 
 increaseRewardsComp = html.Div(
     [
-        dbc.Label("Add. rewards compounding (%)", html_for="increaseRewardsComp"),
+        dbc.Label("Reward Increase (%)", html_for="increaseRewardsComp"),
         dbc.Input(id="increaseRewardsComp", type="text", value=0, readonly=True, style={'float': 'right','margin': 'auto'}),
     ], className="dbc"
 )
@@ -329,7 +329,7 @@ card_in = dbc.Card(
                             [stakindDuration],
                             xs=12, sm=12, md=6, lg=6, xl=6
                         ),
-                    ], align="center", justify="center", className="py-3"
+                    ], align="center", justify="center", className="py-3 mx-5"
                 ),
 
                 dbc.Row(
@@ -342,7 +342,7 @@ card_in = dbc.Card(
                             [stakingAmountUSD],
                             xs=12, sm=12, md=6, lg=6, xl=6
                         )
-                    ], align="center", justify="center", className="py-3"
+                    ], align="center", justify="center", className="py-3 mx-5"
                 ),
 
                 dbc.Row(
@@ -351,7 +351,7 @@ card_in = dbc.Card(
                             [slider],
                             xs=12, sm=12, md=12, lg=12, xl=12
                         ),
-                    ], align="center", justify="center", className="pt-3"
+                    ], align="center", justify="center", className="pt-3 mx-5"
                 ),
 
                 dbc.Row(
@@ -368,7 +368,7 @@ card_in = dbc.Card(
                             ],
                             xs=12, sm=12, md=6, lg=6, xl=6
                         )
-                    ], align="center", justify="center", className="py-3"
+                    ], align="center", justify="center", className="py-3 mx-5"
                 ),
 
                 dbc.Row(
@@ -377,7 +377,7 @@ card_in = dbc.Card(
                             [collapse],
                             width={"size": 12, "offset": 0},
                         ),
-                    ], align="center", justify="center", className="pt-3"
+                    ], align="center", justify="center", className="pt-3 mx-5"
                 ),
 
 
@@ -404,7 +404,7 @@ card_out = dbc.Card(
                             ],
                             xs=12, sm=12, md=6, lg=6, xl=6
                         ),
-                    ], align="center", justify="center", className="py-3"
+                    ], align="center", justify="center", className="py-3 mx-5"
                 ),
                 dbc.Row(
                     [
@@ -416,7 +416,7 @@ card_out = dbc.Card(
                             [stakingRewardsUSD],
                             xs=12, sm=12, md=6, lg=6, xl=6
                         )
-                    ], align="center", justify="center", className="py-3"
+                    ], align="center", justify="center", className="py-3 mx-5"
                 ),
 
                 dbc.Row(
@@ -433,7 +433,7 @@ card_out = dbc.Card(
                             ],
                             xs=12, sm=12, md=6, lg=6, xl=6
                         )
-                    ], align="center", justify="center", className="py-3"
+                    ], align="center", justify="center", className="py-3 mx-5"
                 ),
 
                 dbc.Row(
@@ -450,13 +450,13 @@ card_out = dbc.Card(
                             ],
                             xs=12, sm=12, md=6, lg=6, xl=6
                         ),
-                    ], align="center", justify="center", className="py-3"
+                    ], align="center", justify="center", className="py-3 mx-5"
                 ),
 
                 dbc.Row(
                     [
                         collapse_out
-                    ], align="center", justify="center", className="pt-5 mt-3"
+                    ], align="center", justify="center", className="pt-5 mt-3 mx-5"
                 ),
                     ]
                 )
