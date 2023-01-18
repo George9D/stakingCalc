@@ -89,7 +89,7 @@ current_price = html.Div(
 
 future_price = html.Div(
             [dbc.Label("Future Price USD", html_for="futurePrice"),
-             dbc.Input(id="futurePrice", type="number", value=0, debounce=True, readonly=False, style={'float': 'right','margin': 'auto'}),
+             dbc.Input(id="futurePrice", type="number", value=1, debounce=True, readonly=False, style={'float': 'right','margin': 'auto'}),
             ], className="dbc"
         )
 
@@ -600,6 +600,32 @@ def update_calc(network, stkAmount, curPrice, futPrice,
         title="Daily Staking Rewards",
         hover_data=['Date', 'stakingRewards'],
         template='plotly_dark',
+    )
+
+    fig = [fig1, fig2, fig3]
+    for f in fig:
+        f.update_layout(
+            title={
+                'y': 0.9,
+                'x': 0.5,
+                'xanchor': 'center',
+                'yanchor': 'top'
+            }
+        )
+
+    fig1.update_layout(
+        xaxis_title='Date',
+        yaxis_title=f'{network}'
+    )
+
+    fig2.update_layout(
+        xaxis_title='Date',
+        yaxis_title='%'
+    )
+
+    fig3.update_layout(
+        xaxis_title='Date',
+        yaxis_title=f'{network}'
     )
 
     fig1.update_traces(line=dict(color='#375a7f'))
